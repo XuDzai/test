@@ -56,3 +56,20 @@
             conn.Close();
             return dt;
         }
+        
+        public void ExitForm(FormClosingEventArgs e)    //Đóng ứng dụng
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult dr = MessageBox.Show("Bạn có muốn đóng không?", "Thông báo!!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dr == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
+        }
