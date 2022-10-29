@@ -1,0 +1,58 @@
+ public SqlConnection GetConnection()
+        {
+            string path = @"";
+
+
+            return new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB; 
+                AttachDbFilename=" + path + "; Integrated Security=True");
+        }
+        public void ExcuteNonQuery(string sql)
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            conn.Close();
+
+        }
+
+        public SqlDataReader ExecuteReader(string sql)
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            return reader;
+        }
+        public object ExecuteScalar(string sql)  
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            object kq = cmd.ExecuteScalar();
+            return kq;
+        }
+        public DataTable DataGV(string sql)
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            conn.Close();
+            return dt;
+        }
