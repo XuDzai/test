@@ -74,11 +74,16 @@
             }
         }
         
-        DA.gvDA.DataSource = null;
-            // Add cot cho GV
-            DA.gvDA.AutoGenerateColumns = false;
-            DA.gvDA.ColumnCount = 3;
+           //DA.gvDA.DataSource = null;
 
-            //Dat ten va gia tri cho GV
-            DA.gvDA.Columns[0].HeaderText = "Mã DA";
-            DA.gvDA.Columns[0].DataPropertyName = "MaDA";
+            //DA.gvDA.AutoGenerateColumns = false;
+            //DA.gvDA.ColumnCount = 3;
+            
+           // DA.gvDA.Columns[0].HeaderText = "Mã DA";
+            //DA.gvDA.Columns[0].DataPropertyName = "MaDA";
+
+		         //NV.cb_PB.DataSource = DAL_NV.DAL_NhanVien_PhongBan();
+            //NV.cb_PB.DisplayMember = "TenPB";
+            //NV.cb_PB.ValueMember = "MaPB";
+           // NV.cb_PB.SelectedItem = null;
+            //NV.cb_PB.SelectedText = "Chọn phòng ban";
