@@ -73,3 +73,12 @@
                 }
             }
         }
+        
+        DA.gvDA.DataSource = null;
+            // Add cot cho GV
+            DA.gvDA.AutoGenerateColumns = false;
+            DA.gvDA.ColumnCount = 3;
+
+            //Dat ten va gia tri cho GV
+            DA.gvDA.Columns[0].HeaderText = "Mã DA";
+            DA.gvDA.Columns[0].DataPropertyName = "MaDA";
