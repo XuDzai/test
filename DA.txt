@@ -74,16 +74,94 @@
             }
         }
         
-           //DA.gvDA.DataSource = null;
+            	  public SqlConnection GetConnection()
+        {
+            string path = @"";
+
+
+            return new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB; 
+                AttachDbFilename=" + path + "; Integrated Security=True");
+        }
+        public void ExcuteNonQuery(string sql)
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            conn.Close();
+
+        }
+
+        public SqlDataReader ExecuteReader(string sql)
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataReader reader = cmd.ExecuteReader();
+            return reader;
+        }
+        public object ExecuteScalar(string sql)  
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            object kq = cmd.ExecuteScalar();
+            return kq;
+        }
+        public DataTable DataGV(string sql)
+        {
+            SqlConnection conn = GetConnection();
+            if (conn.State == ConnectionState.Closed)
+            {
+                conn.Open();
+            }
+            SqlCommand cmd = new SqlCommand(sql, conn);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            conn.Close();
+            return dt;
+        }
+
+public void ExitForm(FormClosingEventArgs e)    //Đóng ứng dụng
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                DialogResult dr = MessageBox.Show("Bạn có muốn đóng không?", "Thông báo!!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (dr == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+                else
+                {
+                    Application.Exit();
+                }
+            }
+        }
+
+		//DA.gvDA.DataSource = null;
 
             //DA.gvDA.AutoGenerateColumns = false;
             //DA.gvDA.ColumnCount = 3;
-            
-           // DA.gvDA.Columns[0].HeaderText = "Mã DA";
-            //DA.gvDA.Columns[0].DataPropertyName = "MaDA";
 
-		         //NV.cb_PB.DataSource = DAL_NV.DAL_NhanVien_PhongBan();
-            //NV.cb_PB.DisplayMember = "TenPB";
-            //NV.cb_PB.ValueMember = "MaPB";
+           // DA.gvDA.Columns[0].HeaderText = "Mã";
+            //DA.gvDA.Columns[0].DataPropertyName = "Ma";
+
+		//NV.cb_PB.DataSource = DAL_NV.DAL_NhanVien_PhongBan();
+            //NV.cb_PB.DisplayMember = "Ten";
+            //NV.cb_PB.ValueMember = "Ma";
            // NV.cb_PB.SelectedItem = null;
-            //NV.cb_PB.SelectedText = "Chọn phòng ban";
+            //NV.cb_PB.SelectedText = "Chọn";
+
+		//txt_Ma.Text = gvNV.CurrentRow.Cells[0].Value.ToString();
